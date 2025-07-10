@@ -2,7 +2,7 @@
 import { Building2, Users, Banknote, FileText, TrendingUp, Receipt, Menu } from "lucide-react";
 import {
   Sidebar,
-  SidebarContent,
+  SidebarContent as SidebarContentPrimitive,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -33,7 +33,7 @@ const navigation = [
   { id: "reports", label: "Reports", icon: FileText },
 ];
 
-function SidebarContent({ activeTab, setActiveTab, onItemClick }: AppSidebarProps & { onItemClick?: () => void }) {
+function SidebarContentComponent({ activeTab, setActiveTab, onItemClick }: AppSidebarProps & { onItemClick?: () => void }) {
   return (
     <>
       <div className="flex items-center space-x-2 p-4 border-b border-green-100">
@@ -85,7 +85,7 @@ export function AppSidebar({ activeTab, setActiveTab }: AppSidebarProps) {
           </Button>
         </SheetTrigger>
         <SheetContent side="left" className="w-64 p-0">
-          <SidebarContent 
+          <SidebarContentComponent 
             activeTab={activeTab} 
             setActiveTab={setActiveTab}
             onItemClick={() => {
@@ -113,7 +113,7 @@ export function AppSidebar({ activeTab, setActiveTab }: AppSidebarProps) {
         </div>
       </SidebarHeader>
 
-      <SidebarContent>
+      <SidebarContentPrimitive>
         <SidebarGroup>
           <SidebarGroupLabel className="text-green-700 font-medium">
             Management
@@ -142,7 +142,7 @@ export function AppSidebar({ activeTab, setActiveTab }: AppSidebarProps) {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-      </SidebarContent>
+      </SidebarContentPrimitive>
     </Sidebar>
   );
 }
@@ -161,7 +161,7 @@ export function MobileMenuTrigger({ activeTab, setActiveTab }: AppSidebarProps) 
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className="w-64 p-0">
-        <SidebarContent 
+        <SidebarContentComponent 
           activeTab={activeTab} 
           setActiveTab={setActiveTab}
           onItemClick={() => {
