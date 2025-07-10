@@ -1,5 +1,5 @@
 
-import { Building2, Users, Banknote, FileText, TrendingUp, Receipt } from "lucide-react";
+import { Building2, Users, Banknote, FileText, TrendingUp, Receipt, Menu } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -12,6 +12,13 @@ import {
   SidebarHeader,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface AppSidebarProps {
   activeTab: string;
@@ -26,7 +33,72 @@ const navigation = [
   { id: "reports", label: "Reports", icon: FileText },
 ];
 
+function SidebarContent({ activeTab, setActiveTab, onItemClick }: AppSidebarProps & { onItemClick?: () => void }) {
+  return (
+    <>
+      <div className="flex items-center space-x-2 p-4 border-b border-green-100">
+        <div className="w-8 h-8 bg-gradient-to-r from-green-600 to-green-500 rounded-lg flex items-center justify-center">
+          <span className="text-white font-bold text-sm">R</span>
+        </div>
+        <span className="font-semibold text-green-800">RentEasy</span>
+      </div>
+
+      <div className="p-4">
+        <h4 className="text-green-700 font-medium mb-3">Management</h4>
+        <nav className="space-y-1">
+          {navigation.map((item) => {
+            const Icon = item.icon;
+            return (
+              <button
+                key={item.id}
+                onClick={() => {
+                  setActiveTab(item.id);
+                  onItemClick?.();
+                }}
+                className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-left transition-colors ${
+                  activeTab === item.id
+                    ? "bg-green-100 text-green-800 border-r-2 border-green-600"
+                    : "hover:bg-green-50 text-gray-700"
+                }`}
+              >
+                <Icon className="h-4 w-4" />
+                <span>{item.label}</span>
+              </button>
+            );
+          })}
+        </nav>
+      </div>
+    </>
+  );
+}
+
 export function AppSidebar({ activeTab, setActiveTab }: AppSidebarProps) {
+  const isMobile = useIsMobile();
+
+  if (isMobile) {
+    return (
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button variant="ghost" size="icon" className="md:hidden">
+            <Menu className="h-5 w-5" />
+            <span className="sr-only">Toggle menu</span>
+          </Button>
+        </SheetTrigger>
+        <SheetContent side="left" className="w-64 p-0">
+          <SidebarContent 
+            activeTab={activeTab} 
+            setActiveTab={setActiveTab}
+            onItemClick={() => {
+              // Close the sheet when an item is clicked
+              const closeButton = document.querySelector('[data-state="open"] button[aria-label="Close"]') as HTMLButtonElement;
+              closeButton?.click();
+            }}
+          />
+        </SheetContent>
+      </Sheet>
+    );
+  }
+
   return (
     <Sidebar className="border-r border-green-100">
       <SidebarHeader className="border-b border-green-100">
@@ -72,5 +144,33 @@ export function AppSidebar({ activeTab, setActiveTab }: AppSidebarProps) {
         </SidebarGroup>
       </SidebarContent>
     </Sidebar>
+  );
+}
+
+export function MobileMenuTrigger({ activeTab, setActiveTab }: AppSidebarProps) {
+  const isMobile = useIsMobile();
+
+  if (!isMobile) return null;
+
+  return (
+    <Sheet>
+      <SheetTrigger asChild>
+        <Button variant="ghost" size="icon" className="md:hidden">
+          <Menu className="h-5 w-5" />
+          <span className="sr-only">Toggle menu</span>
+        </Button>
+      </SheetTrigger>
+      <SheetContent side="left" className="w-64 p-0">
+        <SidebarContent 
+          activeTab={activeTab} 
+          setActiveTab={setActiveTab}
+          onItemClick={() => {
+            // Close the sheet when an item is clicked
+            const closeButton = document.querySelector('[data-state="open"] button[aria-label="Close"]') as HTMLButtonElement;
+            closeButton?.click();
+          }}
+        />
+      </SheetContent>
+    </Sheet>
   );
 }
