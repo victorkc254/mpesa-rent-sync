@@ -1,5 +1,5 @@
 
-import { Building2, Users, Banknote, FileText, TrendingUp, Receipt, SidebarTrigger } from "lucide-react";
+import { Building2, Users, Banknote, FileText, TrendingUp, Receipt } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -10,6 +10,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarHeader,
+  SidebarTrigger,
 } from "@/components/ui/sidebar";
 
 interface AppSidebarProps {
