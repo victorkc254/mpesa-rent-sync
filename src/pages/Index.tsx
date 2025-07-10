@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import { AppSidebar, MobileMenuTrigger } from "@/components/AppSidebar";
+import { AppSidebar } from "@/components/AppSidebar";
 import Dashboard from "@/components/Dashboard";
 import PropertyManagement from "@/components/PropertyManagement";
 import PaymentTracking from "@/components/PaymentTracking";
@@ -39,7 +39,6 @@ const Index = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex justify-between items-center h-16">
                 <div className="flex items-center space-x-3">
-                  <MobileMenuTrigger activeTab={activeTab} setActiveTab={setActiveTab} />
                   <div className="w-10 h-10 bg-gradient-to-r from-green-600 to-green-500 rounded-lg flex items-center justify-center">
                     <span className="text-white font-bold text-lg">R</span>
                   </div>

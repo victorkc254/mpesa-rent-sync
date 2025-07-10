@@ -146,31 +146,3 @@ export function AppSidebar({ activeTab, setActiveTab }: AppSidebarProps) {
     </Sidebar>
   );
 }
-
-export function MobileMenuTrigger({ activeTab, setActiveTab }: AppSidebarProps) {
-  const isMobile = useIsMobile();
-
-  if (!isMobile) return null;
-
-  return (
-    <Sheet>
-      <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="md:hidden">
-          <Menu className="h-5 w-5" />
-          <span className="sr-only">Toggle menu</span>
-        </Button>
-      </SheetTrigger>
-      <SheetContent side="left" className="w-64 p-0">
-        <SidebarContentComponent 
-          activeTab={activeTab} 
-          setActiveTab={setActiveTab}
-          onItemClick={() => {
-            // Close the sheet when an item is clicked
-            const closeButton = document.querySelector('[data-state="open"] button[aria-label="Close"]') as HTMLButtonElement;
-            closeButton?.click();
-          }}
-        />
-      </SheetContent>
-    </Sheet>
-  );
-}
